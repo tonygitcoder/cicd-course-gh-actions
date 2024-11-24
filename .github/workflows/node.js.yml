@@ -112,8 +112,8 @@ jobs:
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
           port: ${{ env.EC2_PORT }}
-          source: ./deployment/aws-cicd-pipeline/templates/deployment.yaml
-          target: /home/${{ env.EC2_USER }}/kubernetes/
+          source: ./deployment/aws-cicd-pipeline
+          target: /home/${{ env.EC2_USER }}/kubernetes/aws-cicd-pipeline
 
       - name: Deploy to Minikube
         uses: appleboy/ssh-action@v0.1.6
