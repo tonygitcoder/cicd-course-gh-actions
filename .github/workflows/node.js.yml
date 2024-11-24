@@ -96,6 +96,10 @@ jobs:
           echo "Listing workspace files:"
           ls -R
 
+      - name: Debug SSH Key
+        run: |
+          echo "Key length: $(echo "${{ secrets.AWS_EC2_SSH_KEY }}" | wc -c)"
+
       - name: Prepare Kubernetes Directory
         uses: appleboy/ssh-action@v0.1.6
         with:
