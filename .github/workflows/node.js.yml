@@ -91,6 +91,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Debug GitHub Secret
+        run: |
+          echo "Value of EC2_IP_ADDRESS: ${{ secrets.EC2_IP_ADDRESS }}"
+          echo "Key length: $(echo "${{ secrets.AWS_EC2_SSH_KEY }}" | wc -c)"
+
       - name: Prepare Kubernetes Directory
         uses: appleboy/ssh-action@v0.1.6
         with:
