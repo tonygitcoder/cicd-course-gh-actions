@@ -74,3 +74,27 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    needs:
+      - package-and-publish
+    name: Deploy to AWS EC2 Minikube
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.AWS_EC2_SSH_KEY }}
+
+      - name: Copy Helm Chart to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa \
+          -r ./aws-cicd-pipeline ubuntu@${{ secrets.EC2_IP_ADDRESS }}:/home/ubuntu/
+
+      - name: Deploy with Helm
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.EC2_IP_ADDRESS }} << 'EOF'
+          helm upgrade --install aws-cicd-pipeline /home/ubuntu/aws-cicd-pipeline \
+            --set image.tag=${{ steps.meta.outputs.tags }}
+          EOF
