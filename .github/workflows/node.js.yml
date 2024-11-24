@@ -11,7 +11,14 @@ on:
 
 jobs:
   build:
+    name: "Build and Test"
     runs-on: ubuntu-latest
+
+    permissions:
+      # Required to allow actions/checkout to clone the repository onto the runner
+      contents: read
+      # Required to allow the vitest coverage action to write a comment into the pull request
+      pull-requests: write
 
     strategy:
       matrix:
@@ -28,6 +35,6 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+      - run: npm run test
       - name: Vitest Coverage Report
         uses: davelosert/vitest-coverage-report-action@v2.7.0
-          
