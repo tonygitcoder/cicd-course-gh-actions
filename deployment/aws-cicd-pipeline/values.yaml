@@ -1,8 +1,6 @@
 replicaCount: 1
 
-image:
-  repository: ghcr.io/tonygitcoder/cicd-course-gh-actions
-  tag: "v1.0.0"
+image: ghcr.io/tonygitcoder/cicd-course-gh-actions:8adec39
 
 service:
   nodePort: 30007

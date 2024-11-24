@@ -45,7 +45,7 @@ jobs:
       packages: write
 
     outputs:
-      image_tag: ${{ steps.meta.outputs.tags }}
+      image: ${{ steps.meta.outputs.tags }}
 
     steps:
       - uses: actions/checkout@v4
@@ -64,16 +64,11 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=tag
             type=ref,event=pr
             type=sha,event=branch,prefix=,suffix=,format=short
-
-      - name: Debug Docker Metadata Outputs
-        run: |
-          echo "Full output of 'meta.tags': ${{ steps.meta.outputs.tags }}"
-          echo "Full output of 'meta.labels': ${{ steps.meta.outputs.labels }}"
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
@@ -136,4 +131,4 @@ jobs:
           key: ${{ env.EC2_KEY }}
           port: ${{ env.EC2_PORT }}
           script: |
-            helm upgrade --install aws-cicd-pipeline ./kubernetes/aws-cicd-pipeline/deployment/aws-cicd-pipeline --set image.tag=${{ needs.package-and-publish.outputs.image_tag }}
+            helm upgrade --install aws-cicd-pipeline ./kubernetes/aws-cicd-pipeline/deployment/aws-cicd-pipeline --set image=${{ needs.package-and-publish.outputs.image }}
