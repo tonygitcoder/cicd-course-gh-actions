@@ -113,7 +113,7 @@ jobs:
           key: ${{ env.EC2_KEY }}
           port: ${{ env.EC2_PORT }}
           script: |
-            scp -o StrictHostKeyChecking=no /github/workspace/kubernetes/deployment.yaml ${{ env.EC2_USER }}@${{ env.EC2_HOST }}:/home/${{ env.EC2_USER }}/kubernetes/
+            scp -o StrictHostKeyChecking=no /github/workspace/deployment/templates/deployment.yaml ${{ env.EC2_USER }}@${{ env.EC2_HOST }}:/home/${{ env.EC2_USER }}/kubernetes/
 
       - name: Deploy to Minikube
         uses: appleboy/ssh-action@v0.1.6
