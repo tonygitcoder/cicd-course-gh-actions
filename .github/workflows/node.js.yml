@@ -91,14 +91,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Debug Workspace Files
-        run: |
-          echo "Listing workspace files:"
-          ls -R
+      # - name: Debug Workspace Files
+      #   run: |
+      #     echo "Listing workspace files:"
+      #     ls -R
 
-      - name: Debug SSH Key
-        run: |
-          echo "Key length: $(echo "${{ secrets.AWS_EC2_SSH_KEY }}" | wc -c)"
+      # - name: Debug SSH Key
+      #   run: |
+      #     echo "Key length: $(echo "${{ secrets.AWS_EC2_SSH_KEY }}" | wc -c)"
 
       - name: Prepare Kubernetes Directory
         uses: appleboy/ssh-action@v0.1.6
@@ -127,4 +127,4 @@ jobs:
           key: ${{ env.EC2_KEY }}
           port: ${{ env.EC2_PORT }}
           script: |
-            kubectl apply -f /home/${{ env.EC2_USER }}/kubernetes/deployment.yaml
+            helm upgrade --install aws-cicd-pipeline ./kubernetes/aws-cicd-pipeline/ --set image.tag=v1.0.1
