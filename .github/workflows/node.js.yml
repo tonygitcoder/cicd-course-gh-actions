@@ -94,7 +94,7 @@ jobs:
       - name: Debug Workspace Files
         run: |
           echo "Listing workspace files:"
-          ls -R /github/workspace
+          ls -R
 
       - name: Prepare Kubernetes Directory
         uses: appleboy/ssh-action@v0.1.6
