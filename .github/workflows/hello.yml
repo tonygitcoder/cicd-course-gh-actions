@@ -13,3 +13,5 @@ jobs:
       - run: ls -l
       - uses: actions/checkout@v2
       - run: ls -l
+    env:
+      MY_ENV: "John Doe"
