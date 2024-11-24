@@ -112,7 +112,7 @@ jobs:
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
           port: ${{ env.EC2_PORT }}
-          source: deployment/aws-cicd-pipeline/templates/deployment.yaml
+          source: ./deployment/aws-cicd-pipeline/templates/deployment.yaml
           target: /home/${{ env.EC2_USER }}/kubernetes/
 
       - name: Deploy to Minikube
