@@ -26,5 +26,5 @@ helm install aws-cicd-pipeline ./deployment/aws-cicd-pipeline --set image.tag=v1
 
 # IMPORTANT:
 # To make the pipeline work, you need to create a secret in github with the EC2 instance public IP and the SSH key
-# The secrets should be called "EC2_PUBLIC_IP" and "SSH_PRIVATE_KEY" respectively
+# The secrets should be called "EC2_PUBLIC_IP" and "AWS_EC2_SSH_KEY" respectively
 # The SSH key should be base64 encoded
