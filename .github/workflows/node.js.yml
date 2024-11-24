@@ -82,7 +82,7 @@ jobs:
     #   - package-and-publish
 
     env:
-      EC2_HOST: ${{ secrets.EC2_IP_ADDRESS }}
+      EC2_HOST: ${{ secrets.EC2_PUBLIC_IP }}
       EC2_USER: ubuntu
       EC2_KEY: ${{ secrets.AWS_EC2_SSH_KEY }}
       EC2_PORT: 22
@@ -93,7 +93,7 @@ jobs:
 
       - name: Debug GitHub Secret
         run: |
-          echo "Value of EC2_IP_ADDRESS: ${{ secrets.EC2_IP_ADDRESS }}"
+          echo "Value of EC2_PUBLIC_IP: ${{ secrets.EC2_PUBLIC_IP }}"
           echo "Key length: $(echo "${{ secrets.AWS_EC2_SSH_KEY }}" | wc -c)"
 
       - name: Prepare Kubernetes Directory
