@@ -64,11 +64,16 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ${{ github.repository }}
           tags: |
             type=ref,event=tag
             type=ref,event=pr
             type=sha,event=branch,prefix=,suffix=,format=short
+
+      - name: Debug Docker Metadata Outputs
+        run: |
+          echo "Full output of 'meta.tags': ${{ steps.meta.outputs.tags }}"
+          echo "Full output of 'meta.labels': ${{ steps.meta.outputs.labels }}"
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
