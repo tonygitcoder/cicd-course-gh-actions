@@ -91,10 +91,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Debug GitHub Secret
+      - name: Debug Workspace Files
         run: |
-          echo "Value of EC2_PUBLIC_IP: ${{ secrets.EC2_PUBLIC_IP }}"
-          echo "Key length: $(echo "${{ secrets.AWS_EC2_SSH_KEY }}" | wc -c)"
+          echo "Listing workspace files:"
+          ls -R /github/workspace
 
       - name: Prepare Kubernetes Directory
         uses: appleboy/ssh-action@v0.1.6
@@ -111,8 +111,8 @@ jobs:
           host: ${{ env.EC2_HOST }}
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
-          # port: ${{ env.EC2_PORT }}
-          source: /deployment/aws-cicd-pipeline/templates/deployment.yaml
+          port: ${{ env.EC2_PORT }}
+          source: deployment/aws-cicd-pipeline/templates/deployment.yaml
           target: /home/${{ env.EC2_USER }}/kubernetes/
 
       - name: Deploy to Minikube
